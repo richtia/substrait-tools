@@ -1,0 +1,7 @@
+build
+duckdb
+filelock
+JPype1
+protobuf
+setuptools
+twine
