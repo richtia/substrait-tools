@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 setup(
-    name='substrait-tools-rtia12',
+    name='substrait-tools-rtia13',
     version='0.0.1',
     author='richtia',
     description='A Substrait command line tool',
@@ -20,7 +20,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'test_substrait = produce_substrait:main',
+            'produce_substrait = produce_substrait:main',
         ]
     }
 )
