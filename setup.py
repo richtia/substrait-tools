@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 setup(
-    name='substrait-tools-rtia8',
+    name='substrait-tools-rtia12',
     version='0.0.1',
     author='richtia',
     description='A Substrait command line tool',
@@ -9,6 +9,12 @@ setup(
     # keywords='substrait, consumer',
     python_requires='>=3.9, <4',
     packages=find_packages(include=['produce_substrait*', 'produce_substrait.*']),
+    install_requires=[
+        'duckdb',
+        'filelock',
+        'JPype1',
+        'protobuf',
+    ],
     package_data={
         'produce_substrait': ['jars/*.jar'],
     },
