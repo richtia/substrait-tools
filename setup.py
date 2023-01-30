@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 
 setup(
-    name="substrait-tools-rtia17",
+    name="substrait-tools-rtia27",
     version="0.0.1",
     author="richtia",
     description="A Substrait command line tool",
@@ -16,6 +16,7 @@ setup(
         "filelock",
         "JPype1",
         "protobuf",
+        "pyarrow"
     ],
     package_data={
         "produce_substrait": ["jars/*.jar"],
@@ -24,6 +25,7 @@ setup(
         "console_scripts": [
             "produce_substrait = produce_substrait:main",
             "prepare_tpch_data = consume_substrait:prepare_data",
+            "consume_substrait = consume_substrait:main",
         ]
     },
 )

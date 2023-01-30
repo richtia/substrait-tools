@@ -19,12 +19,8 @@ def main():
     )
     parser.add_argument("--query", required=True)
     args = parser.parse_args()
-
     query = args.query
-    print(f"query is: {query}")
 
-    print(f"type: {type(args.producer)}")
-    print(f"producers: {args.producer}")
     schema_list = []
     if args.schema:
         with open(args.schema) as file:
@@ -34,9 +30,6 @@ def main():
 
     for producer_name in args.producer:
         producer = str_to_class(producer_name)()
-        print(type(producer))
-        print(dir(producer))
-
         producer.produce_substrait(schema_list, query)
 
 

@@ -3,5 +3,6 @@ duckdb
 filelock
 JPype1
 protobuf
+pyarrow
 setuptools
 twine

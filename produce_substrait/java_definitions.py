@@ -6,8 +6,6 @@ import jpype
 
 REPO_DIR = Path(__file__).parent.parent
 isthmus_jars = Path.joinpath(REPO_DIR, "produce_substrait/jars/*")
-print(f"repo dir: {REPO_DIR}")
-print(f"isthmus jars: {isthmus_jars}")
 
 the_java_home = "CONDA_PREFIX"
 if "JAVA_HOME" in os.environ:
