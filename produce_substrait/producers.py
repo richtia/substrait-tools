@@ -1,7 +1,7 @@
 import json
-import jpype.imports
-import duckdb
 
+import duckdb
+import jpype.imports
 import produce_substrait.java_definitions as java
 from com.google.protobuf.util import JsonFormat as json_formatter
 
@@ -14,9 +14,6 @@ class DuckDBProducer:
             self.db_connection = duckdb.connect()
             self.db_connection.execute("INSTALL substrait")
             self.db_connection.execute("LOAD substrait")
-
-    def set_db_connection(self, db_connection):
-        self.db_connection = db_connection
 
     def produce_substrait(self, schema_list, query):
         print(f"hello this is duckdb")
@@ -33,17 +30,6 @@ class DuckDBProducer:
 
 
 class IsthmusProducer:
-    def __init__(self, db_connection=None):
-        if db_connection is not None:
-            self.db_connection = db_connection
-        else:
-            self.db_connection = duckdb.connect()
-
-        self.file_names = None
-
-    def set_db_connection(self, db_connection):
-        self.db_connection = db_connection
-
     def produce_substrait(self, schema_list, query):
         print(f"hello this is isthmus")
 
