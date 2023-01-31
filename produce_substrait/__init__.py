@@ -13,11 +13,11 @@ def main():
         choices=["IsthmusProducer", "DuckDBProducer"],
         help="Substrait Producer",
     )
-    parser.add_argument("--schema", required=True)
+    parser.add_argument("--schema", required=True, help="File containing SQL schema")
     parser.add_argument(
         "--query_type", default=["sql"], choices=["sql"], required=False
     )
-    parser.add_argument("--query", required=True)
+    parser.add_argument("--query", required=True, help="SQL query")
     args = parser.parse_args()
     query = args.query
 

@@ -6,7 +6,9 @@ Table of Contents
 * [Overview](#Overview)
 * [Setup](#Setup)
 * [Command Line Tools](#Command-Line-Tools)
+  * [Create_TPC-H_Data](#Create-TPC-H_Data)
   * [Generate Substrait Plans](#Generate-Substrait-Plans)
+  * [Consume_Substrait_plans](#Consume_Substrait-Plans)
 
 # Overview
 This repository provides tools for substrait
@@ -18,10 +20,17 @@ Create and activate your conda environment with python3.9:
 conda create -y -n substrait_tools -c conda-forge python=3.9 openjdk
 conda activate substrait_tools
 
-python -m pip install --index-url https://test.pypi.org/simple/ --upgrade --no-cache-dir --extra-index-url=https://pypi.org/simple/ substrait-tools-rtia13
+python -m pip install --index-url https://test.pypi.org/simple/ --upgrade --no-cache-dir --extra-index-url=https://pypi.org/simple/substrait-tools-rtia39
 ```
 
 # Command Line Tools
+
+## Create TPC-H Data
+
+```commandline
+prepare_tpch_data                                                                                 
+Parquet data written to /Users/richardtia/opt/miniconda3/envs/test_pypi7/lib/python3.9/site-packages/consume_substrait/adhoc_data
+```
 
 ## Generate Substrait Plans
 
@@ -29,3 +38,25 @@ Example usage
 ```commandline
 produce_substrait --producer DuckDBProducer --schema ./schema.sql --query "select * from lineitem"
 ```
+Arguments:<br>
+--producer: Which substrait producer to generate the plan with.<br>
+--schema: SQL Schema.  Each create table command should be on its own line.<br>
+--query: SQL query.<br>
+
+Sample schema.sql
+```text
+CREATE TABLE lineitem(l_orderkey INTEGER NOT NULL, l_partkey INTEGER NOT NULL, l_suppkey INTEGER NOT NULL, l_linenumber INTEGER NOT NULL, l_quantity INTEGER NOT NULL, l_extendedprice DECIMAL(15,2) NOT NULL, l_discount DECIMAL(15,2) NOT NULL, l_tax DECIMAL(15,2) NOT NULL, l_returnflag VARCHAR NOT NULL, l_linestatus VARCHAR NOT NULL, l_shipdate DATE NOT NULL, l_commitdate DATE NOT NULL, l_receiptdate DATE NOT NULL, l_shipinstruct VARCHAR NOT NULL, l_shipmode VARCHAR NOT NULL, l_comment VARCHAR NOT NULL);
+```
+Each create table command should be on its own line.
+
+## Consumer Substrait Plans
+
+Example usage
+```commandline
+consume_substrait --consumer DuckDBConsumer --data_file ./lineitem.parquet --substrait_plan ./DuckDB_substrait.json --table_name lineitem
+```
+Arguments:<br>
+--consumer: Which substrait consumer to consume the plan with.<br>
+--data_file: Parquet file.<br>
+--substrait_plan: Json formatted substrait plan.<br>
+--table_name: Table name.<br>

@@ -3,9 +3,7 @@ import sys
 from pathlib import Path
 
 import duckdb
-import pyarrow as pa
-import pyarrow.parquet as pq
-import pyarrow.substrait as substrait
+from consume_substrait.consumers import AceroConsumer, DuckDBConsumer
 from filelock import FileLock
 
 
@@ -22,14 +20,14 @@ def prepare_data():
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_file", required=True, type=Path)
-    parser.add_argument("--substrait_plan", required=True, type=Path)
+    parser.add_argument("--data_file", required=True, type=Path, help="A parquet file")
+    parser.add_argument("--substrait_plan", required=True, type=Path, help="A substrait plan in json format")
     parser.add_argument("--table_name", required=True)
     parser.add_argument(
         "--consumer",
         nargs="+",
         required=True,
-        choices=["AceroConsumer"],
+        choices=["AceroConsumer", "DuckDBConsumer"],
         help="Substrait Consumer",
     )
     args = parser.parse_args()
@@ -38,7 +36,6 @@ def main():
 
     for consumer_name in args.consumer:
         consumer = str_to_class(consumer_name)()
-        print(f"consumer type: {type(consumer)}")
 
         consumer.load_data(args.data_file, table_name)
         res = consumer.run_substrait_query(substrait_plan)
@@ -51,37 +48,3 @@ def str_to_class(classname):
 
 if __name__ == " __main__":
     main()
-
-
-class AceroConsumer:
-    """
-    Adapts the Acero Substrait consumer to the test framework.
-    """
-
-    def __init__(self):
-        self.tables = {}
-        self.table_provider = lambda names: self.tables[names[0].lower()]
-
-    def load_data(self, file_path, table_name):
-        self.tables[table_name] = pq.read_table(file_path)
-
-    def run_substrait_query(self, substrait_query: bytes) -> pa.Table:
-        """
-        Run the substrait plan against Acero.
-
-        Parameters:
-            substrait_query:
-                A json formatted byte representation of the substrait query plan.
-
-        Returns:
-            A pyarrow table resulting from running the substrait query plan.
-        """
-        if isinstance(substrait_query, str):
-            buf = pa._substrait._parse_json_plan(substrait_query.encode())
-        else:
-            buf = pa._substrait._parse_json_plan(substrait_query)
-
-        reader = substrait.run_query(buf, table_provider=self.table_provider)
-        result = reader.read_all()
-
-        return result

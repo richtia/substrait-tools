@@ -16,30 +16,26 @@ class DuckDBProducer:
             self.db_connection.execute("LOAD substrait")
 
     def produce_substrait(self, schema_list, query):
-        print(f"hello this is duckdb")
-
         for schema in schema_list:
-            print(f"Executing: {schema}")
             self.db_connection.execute(f"{schema}")
 
         json_plan = self.db_connection.get_substrait_json(query).fetchone()[0]
-        print(json_plan)
         python_json = json.loads(json_plan)
-        with open(f"DuckDBProducer_substrait.json", "w") as outfile:
+        file_name = "DuckDB_substrait.json"
+        with open(file_name, "w") as outfile:
             outfile.write(json.dumps(python_json, indent=4))
+            print(f"substrait plan written to: {file_name}")
 
 
 class IsthmusProducer:
     def produce_substrait(self, schema_list, query):
-        print(f"hello this is isthmus")
-
         java_schema_list = get_java_schema(schema_list)
-        print(java_schema_list)
         json_plan = produce_isthmus_substrait(query, java_schema_list)
-        print(json_plan)
         python_json = json.loads(json_plan)
-        with open(f"Isthmus_substrait.json", "w") as outfile:
+        file_name = "Isthmus_substrait.json"
+        with open(file_name, "w") as outfile:
             outfile.write(json.dumps(python_json, indent=4))
+            print(f"substrait plan written to: {file_name}")
 
 
 def get_java_schema(schema_list):
@@ -75,10 +71,8 @@ def produce_isthmus_substrait(sql_string, schema_list):
     Returns:
         Substrait plan in json format.
     """
-    print("java sql string:")
     sql_to_substrait = java.SqlToSubstraitClass()
     java_sql_string = jpype.java.lang.String(sql_string)
-    print(java_sql_string)
     plan = sql_to_substrait.execute(java_sql_string, schema_list)
     json_plan = json_formatter.printer().print_(plan)
     return json_plan
