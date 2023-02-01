@@ -6,9 +6,9 @@ Table of Contents
 * [Overview](#Overview)
 * [Setup](#Setup)
 * [Command Line Tools](#Command-Line-Tools)
-  * [Create TPC-H Data](#Create-TPC-H_Data)
+  * [Create TPC-H Data](#Create-TPC-H-Data)
   * [Generate Substrait Plans](#Generate-Substrait-Plans)
-  * [Consume Substrait Plans](#Consume_Substrait-Plans)
+  * [Consume Substrait Plans](#Consume-Substrait-Plans)
 
 # Overview
 This repository provides tools for substrait
