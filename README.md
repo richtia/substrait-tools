@@ -29,7 +29,7 @@ python -m pip install --index-url https://test.pypi.org/simple/ --upgrade --no-c
 
 ```commandline
 prepare_tpch_data                                                                                 
-Parquet data written to /Users/richardtia/opt/miniconda3/envs/test_pypi7/lib/python3.9/site-packages/consume_substrait/adhoc_data
+Parquet data written to /Users/richardtia/Voltron/substrait-tools/tpch_data
 ```
 
 ## Generate Substrait Plans
@@ -53,10 +53,9 @@ Each create table command should be on its own line.
 
 Example usage
 ```commandline
-consume_substrait --consumer DuckDBConsumer --data_file ./lineitem.parquet --substrait_plan ./DuckDB_substrait.json --table_name lineitem
+consume_substrait --consumer DuckDBConsumer --substrait_plan ./Isthmus_substrait.json --table_file_pair lineitem=./lineitem.parquet region=./region.parquet
 ```
 Arguments:<br>
 --consumer: Which substrait consumer to consume the plan with.<br>
---data_file: Parquet file.<br>
 --substrait_plan: Json formatted substrait plan.<br>
---table_name: Table name.<br>
+--table_file_pair: One or more table name and file pairings. Table name and file should be separated by an equal (=) sign.

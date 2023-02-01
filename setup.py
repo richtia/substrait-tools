@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 
 setup(
-    name="substrait-tools-rtia41",
+    name="substrait-tools-rtia49",
     version="0.0.1",
     author="richtia",
     description="A Substrait command line tool",
