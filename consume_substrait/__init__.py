@@ -8,7 +8,7 @@ from filelock import FileLock
 
 
 def prepare_data():
-    tpch_data_path = Path(__file__).parent / "adhoc_data"
+    tpch_data_path = Path.cwd() / "tpch_data"
     tpch_data_path.mkdir(parents=True, exist_ok=True)
     lock_file = tpch_data_path / "data.json"
     with FileLock(str(lock_file) + ".lock"):
