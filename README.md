@@ -6,9 +6,9 @@ Table of Contents
 * [Overview](#Overview)
 * [Setup](#Setup)
 * [Command Line Tools](#Command-Line-Tools)
-  * [Create_TPC-H_Data](#Create-TPC-H_Data)
+  * [Create TPC-H Data](#Create-TPC-H_Data)
   * [Generate Substrait Plans](#Generate-Substrait-Plans)
-  * [Consume_Substrait_plans](#Consume_Substrait-Plans)
+  * [Consume Substrait Plans](#Consume_Substrait-Plans)
 
 # Overview
 This repository provides tools for substrait
@@ -49,7 +49,7 @@ CREATE TABLE lineitem(l_orderkey INTEGER NOT NULL, l_partkey INTEGER NOT NULL, l
 ```
 Each create table command should be on its own line.
 
-## Consumer Substrait Plans
+## Consume Substrait Plans
 
 Example usage
 ```commandline
