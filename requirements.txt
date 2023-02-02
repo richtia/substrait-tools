@@ -5,4 +5,5 @@ JPype1
 protobuf
 pyarrow
 setuptools
+substrait-validator
 twine

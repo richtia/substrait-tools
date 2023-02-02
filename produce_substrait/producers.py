@@ -26,6 +26,8 @@ class DuckDBProducer:
             outfile.write(json.dumps(python_json, indent=4))
             print(f"substrait plan written to: {file_name}")
 
+        return python_json
+
 
 class IsthmusProducer:
     def produce_substrait(self, schema_list, query):
@@ -36,6 +38,8 @@ class IsthmusProducer:
         with open(file_name, "w") as outfile:
             outfile.write(json.dumps(python_json, indent=4))
             print(f"substrait plan written to: {file_name}")
+
+        return python_json
 
 
 def get_java_schema(schema_list):
