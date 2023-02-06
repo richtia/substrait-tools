@@ -48,7 +48,7 @@ Arguments:<br>
 --producer: Which substrait producer to generate the plan with.<br>
 --schema: SQL Schema.  Each create table command should be on its own line.<br>
 --query: SQL query.<br>
---ibis_expr: Ibis expression.  Argument should passed as a key value pair with the ibis expression function name and the python file with it's definition (`--ibis_expr test_expr=./expression.py`)
+--ibis_expr: Ibis expression.  Argument should passed as a key value pair with the ibis expression function name and the python file with the function definition (`--ibis_expr test_expr=./expression.py`)<br>
 --validate: Default is false.  If set, the plan will run against the substrait validator.<br>
 --validator_overrides: Bypass error codes found by the substrait validator.  One or more integers separates by spaces.<br>
 
