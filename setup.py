@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 
 setup(
-    name="substrait-tools-rtia55",
+    name="substrait-tools-rtia83",
     version="0.0.1",
     author="richtia",
     description="A Substrait command line tool",
@@ -19,6 +19,8 @@ setup(
     install_requires=[
         "duckdb>=0.6.2.dev1766",
         "filelock",
+        "ibis-framework",
+        "ibis-substrait",
         "JPype1",
         "protobuf",
         "pyarrow",

@@ -3,7 +3,10 @@ import json
 import duckdb
 import jpype.imports
 import produce_substrait.java_definitions as java
+
 from com.google.protobuf.util import JsonFormat as json_formatter
+from google.protobuf import json_format
+from ibis_substrait.compiler.core import SubstraitCompiler
 
 
 class DuckDBProducer:
@@ -24,6 +27,23 @@ class DuckDBProducer:
         file_name = "DuckDB_substrait.json"
         with open(file_name, "w") as outfile:
             outfile.write(json.dumps(python_json, indent=4))
+            print(f"substrait plan written to: {file_name}")
+
+        return python_json
+
+
+class IbisProducer:
+    def __init__(self):
+        self.compiler = SubstraitCompiler()
+
+    def produce_substrait(self, schema_list, ibis_expr):
+        mydict = {'func': ibis_expr, 'args': schema_list}
+        ibis_expr = mydict['func'](*mydict['args'])
+        tpch_proto_bytes = self.compiler.compile(ibis_expr)
+        python_json = json_format.MessageToJson(tpch_proto_bytes)
+        file_name = "Ibis_substrait.json"
+        with open(file_name, "w") as outfile:
+            outfile.write(python_json)
             print(f"substrait plan written to: {file_name}")
 
         return python_json
