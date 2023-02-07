@@ -29,19 +29,25 @@ python -m pip install --index-url https://test.pypi.org/simple/ --upgrade --no-c
 
 ```commandline
 prepare_tpch_data                                                                                 
-Parquet data written to /Users/richardtia/Voltron/substrait-tools/tpch_data
+Parquet data written to /Users/richardtia/substrait-tools/tpch_data
 ```
 
 ## Generate Substrait Plans
 
 Example usage with SQL:
 ```commandline
-produce_substrait --producer DuckDBProducer --schema ./schema.sql --query "select * from lineitem" --validate --validator_overrides 1002
+produce_substrait --producer IsthmusProducer --schema ./schema.sql --query "select * from lineitem" --validate --validator_overrides 1002
+Validating plan: True
+Validator override levels: [1002]
+substrait plan written to: Isthmus_substrait.json
 ```
 
 Example usage with Ibis:
 ```commandline
-produce_substrait --producer IbisProducer --schema ./ibis_schema.py --query_type ibis --ibis_expr test_expr=./expression.py
+produce_substrait --producer IbisProducer --schema ./tables.py --query_type ibis --ibis_expr expr=./expr.py --validate --validator_overrides 1002 2001 1
+Validating plan: True
+Validator override levels: [1002, 2001, 1]
+substrait plan written to: Ibis_substrait.json
 ```
 
 Arguments:<br>
