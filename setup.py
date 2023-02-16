@@ -1,12 +1,16 @@
 from setuptools import find_packages, setup
 
+from pathlib import Path
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
+
 setup(
     name="substrait-tools",
-    version="0.0.1",
+    version="0.0.2",
     author="richtia",
     description="A Substrait command line tool",
-    long_description="Command line tools for producing, validating, "
-                     "and consuming substrait plans",
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     python_requires=">=3.9, <4",
     packages=find_packages(
         include=[
