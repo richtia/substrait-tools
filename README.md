@@ -20,7 +20,7 @@ Create and activate your conda environment with python3.9:
 conda create -y -n substrait_tools -c conda-forge python=3.9 openjdk
 conda activate substrait_tools
 
-python -m pip install --index-url https://test.pypi.org/simple/ --upgrade --no-cache-dir --extra-index-url=https://pypi.org/simple/ substrait-tools-rtia84
+python -m pip install --index-url https://test.pypi.org/simple/ --upgrade --no-cache-dir --extra-index-url=https://pypi.org/simple/ substrait-tools-rtia85
 ```
 
 # Command Line Tools
