@@ -3,10 +3,13 @@ from setuptools import find_packages, setup
 from pathlib import Path
 this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
+project_urls = {
+  'Repository': 'https://github.com/richtia/substrait-tools',
+}
 
 setup(
     name="substrait-tools",
-    version="0.0.2",
+    version="0.0.3",
     author="richtia",
     description="A Substrait command line tool",
     long_description=long_description,
@@ -40,4 +43,5 @@ setup(
             "consume_substrait = consume_substrait:main",
         ]
     },
+    project_urls=project_urls
 )
